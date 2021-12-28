@@ -1,0 +1,6 @@
+subject,predicate,object
+a,p1,b
+b,p2,c
+c,p1,a
+d,p3,e
+e,p3,b
