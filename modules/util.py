@@ -38,7 +38,7 @@ class Util:
         return self.cytoscape_kg_lst(subj_lst=subj_lst, pred_lst=pred_lst, obj_lst=obj_lst) 
 
 
-    def cytoscape_kg_lst(subj_lst:list, pred_lst:list, obj_lst:list) -> list:
+    def cytoscape_kg_lst(self, subj_lst:list, pred_lst:list, obj_lst:list) -> list:
         """Returns list of dictionaries in a cytoscape friendly to generate knowledge graph.
 
 
@@ -65,7 +65,7 @@ class Util:
                 {'data': {'source': sub, 'target': obj, 'label': pred}}
             ]
 
-            elements += nodes
-            elements += relations
+            elements.extend(nodes)
+            elements.extend(relations)
 
         return elements
