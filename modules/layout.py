@@ -1,6 +1,7 @@
 from dash import html
 from dash import dcc
 import dash_cytoscape as cyto
+import dash_bootstrap_components as dbc
 
 
 class Layout:
@@ -20,24 +21,37 @@ class Layout:
 
         return html.Div(
             [
-                html.H1("Knowledge Graph Visualizer"),
-                html.H2("Upload"),
-                dcc.Upload(
-                    id="upload-data",
-                    children=html.Div(
-                        ["Drag and drop or click to select a file to upload."]
-                    ),
-                    style={
-                        "width": "100%",
-                        "height": "60px",
-                        "lineHeight": "60px",
-                        "borderWidth": "1px",
-                        "borderStyle": "dashed",
-                        "borderRadius": "5px",
-                        "textAlign": "center",
-                        "margin": "10px",
-                    },
-                    multiple=False,
+                #dbc.Row(dbc.Col(html.H1("Knowledge Graph Visualizer"))),
+                dbc.Row(
+                    dbc.NavbarSimple(
+                        brand="Knowledge Graph Visualizer",
+                        brand_href="#",
+                        color="primary",
+                        dark=True,
+                    )
+                ),
+                #dbc.Row(dbc.Col(html.H2("Upload"))),
+                dbc.Row(
+                    dbc.Col(
+                        dcc.Upload(
+                            id="upload-data",
+                            children=html.Div(
+                                ["Drag and drop or click to select a file to upload."]
+                            ),
+                            style={
+                                "width": "100%",
+                                "height": "60px",
+                                "lineHeight": "60px",
+                                "borderWidth": "1px",
+                                "borderStyle": "dashed",
+                                "borderRadius": "5px",
+                                "textAlign": "center",
+                                "margin": "10px",
+                            },
+                            multiple=False,
+                        ),
+                        width={"size": 6, "offset": 3},
+                    )
                 ),
             ]
         )
@@ -54,27 +68,33 @@ class Layout:
 
         return html.Div(
             [
-                html.H2("Knowledge Graph"),
-                cyto.Cytoscape(
-                    id='kg-cytoscape',
-                    elements=kg_elements,
-                    #layout={'name': 'breadthfirst'},
-                    style={'width': '1400px', 'height': '700px'},
-                    stylesheet=[
-                        {
-                            'selector': 'edge', 
-                            'style': { 
-                                'label': 'data(label)',
-                                'target-arrow-shape': 'triangle',
-                                'target-arrow-color': 'black',
-                                'source-arrow-color': 'black',
-                                'line-color': '#333',
-                                'width': 1.5,
-                                'curve-style': 'bezier'
-                            },
-                        },
-                        {'selector': 'node', 'style': { 'label': 'data(label)'}},
-                    ],
+                #dbc.Row(dbc.Col(html.H2("Knowledge Graph"))),
+                dbc.Row(
+                    dbc.Col(
+                        dbc.Spinner(
+                            cyto.Cytoscape(
+                                id='kg-cytoscape',
+                                elements=kg_elements,
+                                #layout={'name': 'breadthfirst'},
+                                style={'width': '100%', 'height': '700px'},
+                                stylesheet=[
+                                    {
+                                        'selector': 'edge', 
+                                        'style': { 
+                                            'label': 'data(label)',
+                                            'target-arrow-shape': 'triangle',
+                                            'target-arrow-color': 'black',
+                                            'source-arrow-color': 'black',
+                                            'line-color': '#333',
+                                            #'width': "100%",
+                                            'curve-style': 'bezier'
+                                        },
+                                    },
+                                    {'selector': 'node', 'style': { 'label': 'data(label)'}},
+                                ],
+                            )
+                        )
+                    )
                 )
             ]
         )
