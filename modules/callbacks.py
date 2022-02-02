@@ -20,12 +20,10 @@ def register_callbacks(app):
             elements = util.process_df(util.read_sample_data())
             return elements
 
-        content_type, content_string = contents.split(",")
-        print(content_type)
+        _, content_string = contents.split(",")
+        
         decoded = base64.b64decode(content_string)
-
         df = pd.read_csv(io.StringIO(decoded.decode('utf-8')))
-
         elements = util.process_df(df)
 
         return elements
