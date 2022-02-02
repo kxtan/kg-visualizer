@@ -69,3 +69,38 @@ class Util:
             elements.extend(relations)
 
         return elements
+
+
+    def df_from_cytoscape_list(self, cyto_list:list) -> pd.DataFrame:
+        """Reconstruct SPOs from cytoscape input list
+
+        Args:
+            cyto_list (list): input list in cytoscape format
+
+        Returns:
+            pd.DataFrame: SPO dataframe
+        """
+        sub = "source"
+        pred = "label"
+        obj = "target"
+
+        sub_lst = []
+        pred_lst = []
+        obj_lst = []
+
+        for dct in cyto_list:
+            target = dct["data"]
+            if sub in target and pred in target and obj in target:
+                sub_lst.append(target[sub])
+                pred_lst.append(target[pred])
+                obj_lst.append(target[obj])
+
+        df = pd.DataFrame(
+            {
+                "subject" : sub_lst,
+                "predicate" : pred_lst,
+                "object" :obj_lst
+            }
+        )
+
+        return df

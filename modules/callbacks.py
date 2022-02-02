@@ -1,4 +1,4 @@
-from dash.dependencies import Input, Output
+from dash.dependencies import Input, Output, State
 from modules.util import Util
 import base64
 import pandas as pd
@@ -27,3 +27,15 @@ def register_callbacks(app):
         elements = util.process_df(df)
 
         return elements
+
+    @app.callback(Output('test', 'children'),
+        Input('kg-cytoscape', 'tapNodeData'), 
+        State('kg-cytoscape', 'elements')
+    )
+    def node_selected(data, elements):
+        
+        node = data["label"]
+        util = Util()
+        df = util.df_from_cytoscape_list(elements)
+        
+        return f"Selected Node : {node}"

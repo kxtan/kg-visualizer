@@ -14,6 +14,7 @@ class Layout:
             [
                 self.upload_layout(),
                 self.kg_layout(kg_elements),
+                self.node_layout(),
             ]
         )
 
@@ -97,4 +98,15 @@ class Layout:
                     )
                 )
             ]
+        )
+
+    def node_layout(self):
+
+        return html.Div(
+            dbc.Row(
+                dbc.Col(
+                    html.H1("Selected Node : None", id="test",),
+                    width={"size": 6, "offset": 3},
+                )
+            )
         )
