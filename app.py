@@ -12,6 +12,7 @@ layout = Layout()
 default_elements = util.process_df(util.read_sample_data())
 
 app = dash.Dash(__name__, external_stylesheets=[dbc.themes.LUMEN])
+server = app.server
 app.layout = layout.main_layout(default_elements)
 register_callbacks(app)
 
